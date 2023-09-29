@@ -50,4 +50,9 @@ export const Input = styled.TextInput`
     background-color: white;
     padding: 0 5% ;
     font-size: 20px;
+    border-bottom-width: 5px;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-color: #00000050;
+
 `;
