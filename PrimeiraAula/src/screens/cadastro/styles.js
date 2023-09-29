@@ -11,6 +11,8 @@ export const TextTitle = styled.Text`
     color: white;
     font-size: 40px;
     font-weight: bold;
+    margin-top: 7%;
+
 `;
 
 export const TextLegend = styled.Text`
@@ -30,10 +32,10 @@ export const ButtonLoginWithGoogle = styled.Pressable`
 `;
 
 export const LineView = styled.View`
-     margin-top: 5%;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5%;
+    align-items: center;
     width: 100%;
 `;
 export const Line= styled.View`
@@ -45,7 +47,7 @@ export const Line= styled.View`
 export const Input = styled.TextInput`
     margin-top: 5%;
     height: 7%;
-    width: 70%;
+    width: 80%;
     border-radius: 60px;
     background-color: white;
     padding: 0 5% ;
