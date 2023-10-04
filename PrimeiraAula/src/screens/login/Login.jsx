@@ -11,7 +11,7 @@ import {
   TextTitle,
 } from "./styles";
 
-export const Login = () => {
+export const Login = ({navigation}) => {
   return (
     <Container>
       <Content>

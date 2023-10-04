@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Container } from "../styles";
-import Checkbox from 'expo-checkbox';
+import Checkbox from "expo-checkbox";
 import {
   ButtonLoginWithGoogle,
   Content,
@@ -12,8 +12,10 @@ import {
 } from "./styles";
 import { useState } from "react";
 
-const Cadastro = () => {
+const Cadastro = ({ route, navigation }) => {
   const [marcado, setMarcado] = useState(false);
+
+  const palavra = route.params;
 
   const alterarCheckBox = () => {
     setMarcado(!marcado);
@@ -23,14 +25,14 @@ const Cadastro = () => {
     <Container>
       <Content>
         <TextTitle>Sing up To SHH</TextTitle>
-        <ButtonLoginWithGoogle>
+        <ButtonLoginWithGoogle onPress={() => navigation.navigate("Login")}>
           <TextLegend>Sing in with google</TextLegend>
         </ButtonLoginWithGoogle>
 
         <LineView>
           <Line />
           <TextLegend style={{ color: "#000" }}>
-            Or continue with Email
+            salve e {palavra}
           </TextLegend>
           <Line />
         </LineView>
@@ -40,13 +42,20 @@ const Cadastro = () => {
         <Input placeholder="Enter your Email" />
         <Input placeholder="Enter your Password" />
 
-        <View style={{ flexDirection: "row", width: "80%", alignItems:"center", justifyContent: "space-between" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "80%",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Checkbox
             value={marcado}
             onValueChange={alterarCheckBox}
-            color={marcado ? '#4630EB' : "white"}
+            color={marcado ? "#4630EB" : "white"}
           />
-          <TextLegend >
+          <TextLegend>
             I agree with the terms of service and privacy policy
           </TextLegend>
         </View>
@@ -54,7 +63,10 @@ const Cadastro = () => {
         <View
           style={{ width: "60%", alignSelf: "flex-end", alignItems: "center" }}
         >
-          <ButtonLoginWithGoogle style={{ height: "24%" }}>
+          <ButtonLoginWithGoogle
+            onPress={() => navigation.navigate("Home")}
+            style={{ height: "24%" }}
+          >
             <TextLegend>Create Account</TextLegend>
           </ButtonLoginWithGoogle>
 

@@ -18,7 +18,13 @@ import {
   TopView,
 } from "./styles";
 
-const Home = () => {
+const Home = ({ navigation }) => {
+
+  const palavra = "Oiii negada";
+  const handleSingUp = () =>{
+    navigation.navigate('Cadastro', palavra)
+  }
+
   return (
     <Container>
       <Content>
@@ -39,7 +45,7 @@ const Home = () => {
         </MidView>
 
         <BottonView>
-          <SingInButton>
+          <SingInButton onPress={handleSingUp} >
             <ButtonText>Sing In</ButtonText>
           </SingInButton>
           <View style={{ flexDirection: "row" }}>
