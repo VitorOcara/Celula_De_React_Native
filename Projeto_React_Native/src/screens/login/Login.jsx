@@ -1,3 +1,4 @@
+import { LoginRedirect } from "../cadastro/styles";
 import { Container } from "../globalStyle";
 import {
   Content,
@@ -25,6 +26,13 @@ const Login = () => {
         <LoginButton>
           <TextButton>Login</TextButton>
         </LoginButton>
+
+        <LoginRedirect>
+          <TextLegend>Não possui uma conta? </TextLegend>
+          <TextLegend style={{ color: "white", fontWeight: "bold" }}>
+            Cadastre-se
+          </TextLegend>
+        </LoginRedirect>
       </Content>
     </Container>
   );
