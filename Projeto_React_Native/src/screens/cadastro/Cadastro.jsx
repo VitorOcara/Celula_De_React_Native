@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Container, VoidView } from "../globalStyle";
+import UsuarioService from "../firebase/services/UsuarioService";
 import {
   Content,
   InputView,
@@ -10,7 +12,19 @@ import {
   LoginRedirect,
 } from "./styles";
 
+import { auth } from "../firebase/firebase_config";
+
 const Cadastro = () => {
+  const [Usuario, setUsuario] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [Email, setEmail] = useState("");
+
+
+  const singUp = ()=>{
+    UsuarioService.singUp(auth, Email, Senha, 
+      (userCredential)=> {console.log(userCredential)})
+  }
+
   return (
     <Container>
       <Content>
@@ -18,14 +32,23 @@ const Cadastro = () => {
 
         <InputView>
           <TextLegend>Nome de Usuário</TextLegend>
-          <CadastroInput />
+          <CadastroInput
+            value={Usuario}
+            onChangeText={(Usuario) => setUsuario(Usuario)}
+          />
           <TextLegend>Email</TextLegend>
-          <CadastroInput />
+          <CadastroInput
+            value={Email}
+            onChangeText={(Email) => setEmail(Email)}
+          />
           <TextLegend>Senha</TextLegend>
-          <CadastroInput />
+          <CadastroInput
+            value={Senha}
+            onChangeText={(Senha) => setSenha(Senha)}
+          />
         </InputView>
 
-        <CadastroButton>
+        <CadastroButton onPress={singUp} >
           <TextButton>Cadastrar-se</TextButton>
         </CadastroButton>
 
