@@ -13,17 +13,29 @@ import {
 } from "./styles";
 
 import { auth } from "../firebase/firebase_config";
+import { Alert, View } from "react-native";
 
 const Cadastro = () => {
-  const [Usuario, setUsuario] = useState("");
-  const [Senha, setSenha] = useState("");
   const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [Senha02, setSenha02] = useState("");
+  const [error, setError] = useState("Preencha Todos os Campos");
+  const [ativado, setAtivado] = useState(false);
 
+  const pressCadastro = () => {
+    if (Email !== null && Senha === Senha02) {
+      setAtivado(true);
+    }else{
+      Alert.alert("Informações Inválidas! Verifique se as Digitou corretamente")
+    }
+    ativado === true ? singUp : Alert.alert(error);
+  };
 
-  const singUp = ()=>{
-    UsuarioService.singUp(auth, Email, Senha, 
-      (userCredential)=> {console.log(userCredential)})
-  }
+  const singUp = () => {
+    UsuarioService.singUp(auth, Email, Senha, (userCredential) => {
+      console.log(userCredential);
+    });
+  };
 
   return (
     <Container>
@@ -31,24 +43,27 @@ const Cadastro = () => {
         <TextTitle>Cadastro</TextTitle>
 
         <InputView>
-          <TextLegend>Nome de Usuário</TextLegend>
-          <CadastroInput
-            value={Usuario}
-            onChangeText={(Usuario) => setUsuario(Usuario)}
-          />
           <TextLegend>Email</TextLegend>
           <CadastroInput
             value={Email}
             onChangeText={(Email) => setEmail(Email)}
+            onBlur={() => (Email ? null : Alert.alert("Email Obrigatório"))}
           />
           <TextLegend>Senha</TextLegend>
           <CadastroInput
+            secureTextEntry={true}
             value={Senha}
             onChangeText={(Senha) => setSenha(Senha)}
           />
+          <TextLegend>Confirme a senha</TextLegend>
+          <CadastroInput
+            secureTextEntry={true}
+            value={Senha02}
+            onChangeText={(Senha02) => setSenha02(Senha02)}
+          />
         </InputView>
 
-        <CadastroButton onPress={singUp} >
+        <CadastroButton onPress={pressCadastro}>
           <TextButton>Cadastrar-se</TextButton>
         </CadastroButton>
 
