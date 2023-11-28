@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Container, VoidView } from "../globalStyle";
-import UsuarioService from "../firebase/services/UsuarioService";
+import React, { useState } from "react";
+import { CheckBox, Container } from "../globalStyle";
+import UsuarioService from "../../firebase/services/UsuarioService";
 import {
   Content,
   InputView,
@@ -11,30 +11,30 @@ import {
   TextTitle,
   LoginRedirect,
 } from "./styles";
+import { auth } from "../../firebase/firebase_config";
+import { Alert, View, Modal, ActivityIndicator } from "react-native";
 
-import { auth } from "../firebase/firebase_config";
-import { Alert, View } from "react-native";
-
-const Cadastro = () => {
+const Cadastro = ({ navigation }) => {
   const [Email, setEmail] = useState("");
   const [Senha, setSenha] = useState("");
   const [Senha02, setSenha02] = useState("");
-  const [error, setError] = useState("Preencha Todos os Campos");
-  const [ativado, setAtivado] = useState(false);
+  const [oculto, setOculto] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const pressCadastro = () => {
-    if (Email !== null && Senha === Senha02) {
-      setAtivado(true);
-    }else{
-      Alert.alert("Informações Inválidas! Verifique se as Digitou corretamente")
+  const pressCadastro = async () => {
+    try {
+      setLoading(true);
+      const userCredential = await UsuarioService.singUp(auth, Email, Senha);
+      if (userCredential) {
+        console.log("Login bem-sucedido");
+        setLoading(false);
+        navigation.navigate("Home");
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert(error.message);
     }
-    ativado === true ? singUp : Alert.alert(error);
-  };
-
-  const singUp = () => {
-    UsuarioService.singUp(auth, Email, Senha, (userCredential) => {
-      console.log(userCredential);
-    });
   };
 
   return (
@@ -51,28 +51,48 @@ const Cadastro = () => {
           />
           <TextLegend>Senha</TextLegend>
           <CadastroInput
-            secureTextEntry={true}
+            secureTextEntry={oculto}
             value={Senha}
             onChangeText={(Senha) => setSenha(Senha)}
           />
           <TextLegend>Confirme a senha</TextLegend>
           <CadastroInput
-            secureTextEntry={true}
+            secureTextEntry={oculto}
             value={Senha02}
             onChangeText={(Senha02) => setSenha02(Senha02)}
           />
+        </InputView>
+
+        <InputView style={{ flexDirection: "row" }}>
+          <CheckBox
+            onPress={(isChecked) => setOculto(!isChecked)}
+            fillColor="black"
+          />
+          <TextLegend style={{ fontSize: 18 }}>Mostrar Senha</TextLegend>
         </InputView>
 
         <CadastroButton onPress={pressCadastro}>
           <TextButton>Cadastrar-se</TextButton>
         </CadastroButton>
 
-        <LoginRedirect>
-          <TextLegend>Já possui uma conta? </TextLegend>
-          <TextLegend style={{ color: "white", fontWeight: "bold" }}>
+        <LoginRedirect onPress={() => navigation.navigate("Login")}>
+          <TextLegend style={{ fontSize: 15 }}>
+            Já possui uma conta?{" "}
+          </TextLegend>
+          <TextLegend
+            style={{ fontSize: 15, color: "white", fontWeight: "bold" }}
+          >
             Entrar
           </TextLegend>
         </LoginRedirect>
+
+        <Modal transparent={true} animationType="slide" visible={loading}>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <ActivityIndicator size="large" color="black" />
+          </View>
+        </Modal>
       </Content>
     </Container>
   );

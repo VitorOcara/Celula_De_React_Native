@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Content = styled.View`
   flex: 1;
   width: 100%;
@@ -50,3 +51,4 @@ export const LoginRedirect = styled.Pressable`
   flex-direction: row;
   align-items: flex-end;
 `;
+
