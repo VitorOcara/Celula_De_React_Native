@@ -12,7 +12,7 @@ import {
 } from "./styles";
 import UsuarioService from "../../firebase/services/UsuarioService";
 import { auth } from "../../firebase/firebase_config";
-import { ActivityIndicator, Alert, Modal, View } from "react-native";
+import { Alert } from "react-native";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -23,8 +23,7 @@ const Login = ({ navigation }) => {
     try {
       const userCredential = await UsuarioService.singIn(auth, email, senha);
       if (userCredential) {
-        console.log("Login bem-sucedido");
-        navigation.navigate("Home");
+        navigation.navigate("Main");
       }
     } catch (error) {
       Alert.alert(error.message);
@@ -62,7 +61,7 @@ const Login = ({ navigation }) => {
 
         <LoginRedirect onPress={() => navigation.navigate("Cadastro")}>
           <TextLegend style={{ fontSize: 15 }}>
-            Não possui uma conta?{" "}
+            Não possui uma conta?
           </TextLegend>
           <TextLegend
             style={{ color: "white", fontSize: 15, fontWeight: "bold" }}

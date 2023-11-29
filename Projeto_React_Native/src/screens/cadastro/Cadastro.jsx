@@ -28,7 +28,7 @@ const Cadastro = ({ navigation }) => {
       if (userCredential) {
         console.log("Login bem-sucedido");
         setLoading(false);
-        navigation.navigate("Home");
+        navigation.navigate("Main");
       }
       setLoading(false);
     } catch (error) {

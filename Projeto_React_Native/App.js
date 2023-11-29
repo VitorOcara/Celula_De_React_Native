@@ -1,6 +1,4 @@
-import Navigation from "./src/screens/Nav";
-import Cadastro from "./src/screens/cadastro/Cadastro";
-// import Home from "./src/screens/home/Home";
+import Navigation from "./src/Nav";
 import { NavigationContainer } from '@react-navigation/native';
 
 
