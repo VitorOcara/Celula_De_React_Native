@@ -19,6 +19,8 @@ const AddConsulta = ({ state, descriptors, navigation }) => {
   const [data, setData] = useState(new Date(1598051730000));
   const [loading, setLoading] = useState(false);
   const [uid, setUid] = useState();
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
 
   hora.setHours(hora.getHours() - 3);
   const horaFormatada = hora.toISOString().split("T")[1].split(".")[0];
@@ -38,22 +40,13 @@ const AddConsulta = ({ state, descriptors, navigation }) => {
       ConsultaService.addConsultaFirebase(
         uid,
         local,
-        horaFormatada,
-        dataFormatada
+        hora.toString(),
+        data.toString()
       );
       Alert.alert("Adicionado com sucesso!");
       setLoading(false);
     }
   };
-
-  // const onChange = (selectedDate) => {
-  //   if (mode === "time") {
-  //     setHora(selectedDate || hora);
-  //   } else {
-  //     setData(selectedDate || data);
-  //   }
-  //   setShow(false);
-  // };
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || (mode === "time" ? hora : data);
@@ -77,9 +70,6 @@ const AddConsulta = ({ state, descriptors, navigation }) => {
   const showTimepicker = () => {
     showMode("time");
   };
-
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
 
   return (
     <Container>
@@ -125,8 +115,6 @@ const AddConsulta = ({ state, descriptors, navigation }) => {
           />
         )}
       </InputView>
-
-      <InputView></InputView>
 
       <AddConsultaBtt onPress={handleAddConsulta}>
         <TextLegend style={{ marginTop: 0, color: "white" }}>

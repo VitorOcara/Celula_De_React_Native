@@ -65,7 +65,7 @@ const ListConsulta = ({ navigation }) => {
                 justifyContent: "space-evenly",
               }}
             >
-              <ButtonIcon >
+              <ButtonIcon onPress={() => navigation.navigate("EditConsulta", item)} >
                 <Icons name="pencil" color="black" />
               </ButtonIcon>
               <ButtonIcon onPress={() => handleDeleteConsulta(item.id)}>
