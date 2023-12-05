@@ -64,7 +64,7 @@ const Login = ({ navigation }) => {
             Não possui uma conta?
           </TextLegend>
           <TextLegend
-            style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+            style={{ color: "white", fontSize: 15, fontWeight: "bold", marginLeft: 5 }}
           >
             Cadastre-se
           </TextLegend>
