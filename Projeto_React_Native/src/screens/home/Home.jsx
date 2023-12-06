@@ -8,7 +8,7 @@ const Home = ({ navigation }) => {
   return (
     <Container>
       <Content>
-        <TextLegend >Aplicação criada para apresentação na Disciplina de Projetos de Interface Web</TextLegend>
+        <TextLegend >Aplicação criada para apresentação na Disciplina de Introdução à programação para desing</TextLegend>
       </Content>
     </Container>
   );
